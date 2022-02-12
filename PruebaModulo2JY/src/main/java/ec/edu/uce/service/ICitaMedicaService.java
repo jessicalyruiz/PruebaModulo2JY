@@ -1,4 +1,4 @@
-package ec.edu.uce.repository;
+package ec.edu.uce.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import ec.edu.uce.modelo.Paciente;
 
-public interface ICitaMedicaRepo {
+public interface ICitaMedicaService {
 
 	public void agendarCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String cedulaDoctor, String cedulaPaciente);
 	
