@@ -100,39 +100,16 @@ public class CitaMedicaRepoImpl implements ICitaMedicaRepo {
 		return (List<Paciente>) myQuery.getResultList();
 	}
 
-	@Override
-	public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar,
-			String apellidoDoctor, String codigoSeguroPaciente) {
-		// TODO Auto-generated method stub
-		CitaMedica citaInsertar=new CitaMedica();
-		citaInsertar.setNumero(numeroCita);
-		citaInsertar.setFecha(fecha);
-		citaInsertar.setValor(valor);
-		
-		Paciente paciente=this.buscarPacientecodigoSeguro(codigoSeguroPaciente);
-		Doctor doctor=this.buscarDoctorApellido(apellidoDoctor);
-		citaInsertar.setPaciente(paciente);
-		citaInsertar.setDoctor(doctor);
-		
-		if(fecha.isAfter(LocalDateTime.now())) {
-			BigDecimal valorRecalculado=citaInsertar.getValor().add(citaInsertar.getValor().multiply(new BigDecimal(0.12)));
-			citaInsertar.setValor(valorRecalculado);
-			this.create(citaInsertar);
-		}else {
-			LOG.warn("No se ha podido angendar la cita- fecha incorrecta");
-		}
-		
-		
-	}
+	
 
-	private Paciente buscarPacientecodigoSeguro(String codigoSeguroPaciente) {
+	public Paciente buscarPacientecodigoSeguro(String codigoSeguroPaciente) {
 		TypedQuery<Paciente> myQuery=(TypedQuery<Paciente>) this.entityManager.createQuery("Select p from Paciente p where p.codigoSeguro=:valor");
 		myQuery.setParameter("valor", codigoSeguroPaciente);
 
 		return myQuery.getSingleResult();
 	}
 	
-	private Doctor buscarDoctorApellido(String apellido) {
+	public Doctor buscarDoctorApellido(String apellido) {
 		TypedQuery<Doctor> myQuery=(TypedQuery<Doctor>) this.entityManager.createQuery("Select d from Doctor d where d.apellido=:valor");
 		myQuery.setParameter("valor", apellido);
 

@@ -49,7 +49,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		
 		CitaMedica cita=new CitaMedica();
 		cita.setDiagnostico("disenteria");
-		cita.setFecha(LocalDateTime.of(2022, Month.APRIL, 5, 12, 30));
+		cita.setFecha(LocalDateTime.of(2021, Month.APRIL, 5, 12, 30));
 		cita.setLugar("clinica pichincha ala B");
 		cita.setNumero("45-78");
 		cita.setReceta("paracetamol");
@@ -84,7 +84,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		Paciente paciente2=new Paciente();
 		paciente2.setApellido("Ruiz");
 		paciente2.setCedula("237000");
-		paciente2.setCodigoSeguro("yus-45");
+		paciente2.setCodigoSeguro("qwus-45");
 		paciente2.setEstatura(1.78f);
 		paciente2.setFechaNacimiento(LocalDate.of(1950, Month.FEBRUARY, 10));
 		paciente2.setGenero("femenino");
@@ -95,7 +95,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		LOG.info(paciente2.toString());
 		
 		Doctor doctor=new Doctor();
-		doctor.setApellido("Vica");
+		doctor.setApellido("Vinces");
 		doctor.setCedula("2300");
 		doctor.setCodigoSenescyt("rt-56");
 		doctor.setFechaNacimiento(LocalDate.of(1992, Month.JUNE, 24));

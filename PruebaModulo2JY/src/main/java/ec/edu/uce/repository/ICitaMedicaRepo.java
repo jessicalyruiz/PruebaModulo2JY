@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import ec.edu.uce.modelo.CitaMedica;
+import ec.edu.uce.modelo.Doctor;
 import ec.edu.uce.modelo.Paciente;
 
 public interface ICitaMedicaRepo {
@@ -22,6 +23,8 @@ public interface ICitaMedicaRepo {
 	
 	public List<Paciente> reportePacientes(String cedula, String nombre, LocalDate fecha, String genero);
 	
-	public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String apellidoDoctor, String codigoSeguroPaciente);
+	//public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String apellidoDoctor, String codigoSeguroPaciente);
+	public Paciente buscarPacientecodigoSeguro(String codigoSeguroPaciente);
+	public Doctor buscarDoctorApellido(String apellido) ;
 	
 }
