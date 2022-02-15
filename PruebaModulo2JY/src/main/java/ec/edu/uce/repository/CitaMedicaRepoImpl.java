@@ -115,7 +115,7 @@ public class CitaMedicaRepoImpl implements ICitaMedicaRepo {
 		citaInsertar.setDoctor(doctor);
 		
 		if(fecha.isAfter(LocalDateTime.now())) {
-			BigDecimal valorRecalculado=citaInsertar.getValor().multiply(new BigDecimal(0.12));
+			BigDecimal valorRecalculado=citaInsertar.getValor().add(citaInsertar.getValor().multiply(new BigDecimal(0.12)));
 			citaInsertar.setValor(valorRecalculado);
 			this.create(citaInsertar);
 		}else {

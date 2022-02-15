@@ -45,6 +45,8 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
+		LOG.info("****************");
+		
 		CitaMedica cita=new CitaMedica();
 		cita.setDiagnostico("disenteria");
 		cita.setFecha(LocalDateTime.of(2022, Month.APRIL, 5, 12, 30));
@@ -82,7 +84,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		Paciente paciente2=new Paciente();
 		paciente2.setApellido("Ruiz");
 		paciente2.setCedula("237000");
-		paciente2.setCodigoSeguro("pys-45");
+		paciente2.setCodigoSeguro("yus-45");
 		paciente2.setEstatura(1.78f);
 		paciente2.setFechaNacimiento(LocalDate.of(1950, Month.FEBRUARY, 10));
 		paciente2.setGenero("femenino");
@@ -93,7 +95,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		LOG.info(paciente2.toString());
 		
 		Doctor doctor=new Doctor();
-		doctor.setApellido("Vican");
+		doctor.setApellido("Vica");
 		doctor.setCedula("2300");
 		doctor.setCodigoSenescyt("rt-56");
 		doctor.setFechaNacimiento(LocalDate.of(1992, Month.JUNE, 24));
