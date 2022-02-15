@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import ec.edu.uce.modelo.CitaMedica;
@@ -21,12 +23,37 @@ import ec.edu.uce.modelo.Paciente;
 @Repository
 @Transactional
 public class CitaMedicaRepoImpl implements ICitaMedicaRepo {
-
+	private static Logger LOG=Logger.getLogger(CitaMedicaRepoImpl.class);
 	
 	@PersistenceContext
 	private EntityManager  entityManager;
 
-	
+	@Override
+	public void create(CitaMedica citaMedica) {
+		this.entityManager.persist(citaMedica);
+		LOG.info(citaMedica.toString());
+	}
+
+	@Override
+	public CitaMedica read(Integer id) {
+		// TODO Auto-generated method stub
+		return this.entityManager.find(CitaMedica.class, id);
+	}
+
+	@Override
+	public void update(CitaMedica citaMedica) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(null);
+		LOG.info(citaMedica.toString());
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		CitaMedica citaBorar=this.read(id);
+		this.entityManager.remove(citaBorar);
+	}
+
 	@Override
 	public void agendarCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String cedulaDoctor,
 			String cedulaPaciente) {
@@ -73,6 +100,44 @@ public class CitaMedicaRepoImpl implements ICitaMedicaRepo {
 		return (List<Paciente>) myQuery.getResultList();
 	}
 
+	@Override
+	public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar,
+			String apellidoDoctor, String codigoSeguroPaciente) {
+		// TODO Auto-generated method stub
+		CitaMedica citaInsertar=new CitaMedica();
+		citaInsertar.setNumero(numeroCita);
+		citaInsertar.setFecha(fecha);
+		citaInsertar.setValor(valor);
+		
+		Paciente paciente=this.buscarPacientecodigoSeguro(codigoSeguroPaciente);
+		Doctor doctor=this.buscarDoctorApellido(apellidoDoctor);
+		citaInsertar.setPaciente(paciente);
+		citaInsertar.setDoctor(doctor);
+		
+		if(fecha.isAfter(LocalDateTime.now())) {
+			BigDecimal valorRecalculado=citaInsertar.getValor().multiply(new BigDecimal(0.12));
+			citaInsertar.setValor(valorRecalculado);
+			this.create(citaInsertar);
+		}else {
+			LOG.warn("No se ha podido angendar la cita- fecha incorrecta");
+		}
+		
+		
+	}
+
+	private Paciente buscarPacientecodigoSeguro(String codigoSeguroPaciente) {
+		TypedQuery<Paciente> myQuery=(TypedQuery<Paciente>) this.entityManager.createQuery("Select p from Paciente p where p.codigoSeguro=:valor");
+		myQuery.setParameter("valor", codigoSeguroPaciente);
+
+		return myQuery.getSingleResult();
+	}
+	
+	private Doctor buscarDoctorApellido(String apellido) {
+		TypedQuery<Doctor> myQuery=(TypedQuery<Doctor>) this.entityManager.createQuery("Select d from Doctor d where d.apellido=:valor");
+		myQuery.setParameter("valor", apellido);
+
+		return myQuery.getSingleResult();
+	}
 
 
 }

@@ -14,4 +14,7 @@ public interface ICitaMedicaService {
 	public void acturalizarCita(String numeroCita, String diagnostico, String receta, LocalDateTime  fechaProximaCita);
 	
 	public List<Paciente> reportePacientes(String cedula, String nombre, LocalDate fecha, String genero);
+	
+	public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String apellidoDoctor, String codigoSeguroPaciente);
+	
 }

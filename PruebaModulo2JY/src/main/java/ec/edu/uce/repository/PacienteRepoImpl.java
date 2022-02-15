@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import ec.edu.uce.modelo.Paciente;
@@ -11,7 +12,7 @@ import ec.edu.uce.modelo.Paciente;
 @Transactional
 public class PacienteRepoImpl implements IPacienteRepo{
 
-	
+	private static Logger LOG=Logger.getLogger(DoctorRepoImpl.class);
 	@PersistenceContext
 	private EntityManager  entityManager;
 
@@ -20,6 +21,7 @@ public class PacienteRepoImpl implements IPacienteRepo{
 	public void create(Paciente paciente) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(paciente);
+		LOG.info(paciente.toString());
 	}
 
 	@Override
@@ -32,6 +34,7 @@ public class PacienteRepoImpl implements IPacienteRepo{
 	public void update(Paciente paciente) {
 		// TODO Auto-generated method stub
 		this.entityManager.merge(paciente);
+		LOG.info(paciente.toString());
 	}
 
 	@Override
