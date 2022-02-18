@@ -9,4 +9,5 @@ public interface IDoctorRepo {
 	public Doctor read(Integer id); 
 	public void update(Doctor doctor); 
 	public void delete(Integer id); 
+	public Doctor buscarDoctorCedula(String cedula) ;
 }

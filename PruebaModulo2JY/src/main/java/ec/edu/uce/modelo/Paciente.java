@@ -137,7 +137,7 @@ public class Paciente {
 	public String toString() {
 		return "Paciente [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", fechaNacimiento=" + fechaNacimiento + ", codigoSeguro=" + codigoSeguro + ", estatura=" + estatura
-				+ ", peso=" + peso + ", genero=" + genero + ", citaMedica=" + citaMedica + "]";
+				+ ", peso=" + peso + ", genero=" + genero + "]";
 	}
 	
 	

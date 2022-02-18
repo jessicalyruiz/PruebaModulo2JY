@@ -125,7 +125,7 @@ public class Doctor {
 	public String toString() {
 		return "Doctor [id=" + id + ", cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", fechaNacimiento=" + fechaNacimiento + ", numeroConsultorio=" + numeroConsultorio
-				+ ", codigoSenescyt=" + codigoSenescyt + ", genero=" + genero + ", citaMedica=" + citaMedica + "]";
+				+ ", codigoSenescyt=" + codigoSenescyt + ", genero=" + genero + "]";
 	}
 	
 	

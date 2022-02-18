@@ -22,12 +22,11 @@ public class GestorCitaImpl implements IGestorCita{
 	@Autowired 
 	private ICitaMedicaService citaService;
 	
-	@Override
-	public void agendarCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String cedulaDoctor,
-			String cedulaPaciente) {
-		// TODO Auto-generated method stub
-		this.citaService.agendarCita(numeroCita, fecha, valor, lugar, cedulaDoctor, cedulaPaciente);
-	}
+	@Autowired
+	private IPacienteService pacienteService;
+	
+	@Autowired
+	private IDoctorService doctorService;
 
 	@Override
 	public void acturalizarCita(String numeroCita, String diagnostico, String receta, LocalDateTime fechaProximaCita) {
@@ -64,4 +63,22 @@ public class GestorCitaImpl implements IGestorCita{
 		
 	}
 
+	
+	@Override
+	public void agendarCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String cedulaDoctor,
+			String cedulaPaciente) {
+		CitaMedica citaInsertar=new CitaMedica();
+		citaInsertar.setNumero(numeroCita);
+		citaInsertar.setFecha(fecha);
+		citaInsertar.setValor(valor);
+		
+		Doctor doctorCita=this.doctorService.buscarDoctorCedula(cedulaDoctor);
+			
+		citaInsertar.setDoctor(doctorCita);
+				
+		Paciente pacienteCita=this.pacienteService.buscarPacienteCedula(cedulaPaciente);
+		
+		citaInsertar.setPaciente(pacienteCita);
+		this.citaService.create(citaInsertar);
+	}
 }

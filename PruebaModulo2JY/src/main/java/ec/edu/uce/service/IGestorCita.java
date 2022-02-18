@@ -17,5 +17,5 @@ public interface IGestorCita {
 	public List<Paciente> reportePacientes(String cedula, String nombre, LocalDate fecha, String genero);
 	
 	public void agendamientoCita(String numeroCita, LocalDateTime fecha, BigDecimal valor, String lugar, String apellidoDoctor, String codigoSeguroPaciente);
-	
+
 }

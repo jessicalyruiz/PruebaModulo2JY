@@ -18,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import ec.edu.uce.modelo.CitaMedica;
 import ec.edu.uce.modelo.Doctor;
 import ec.edu.uce.modelo.Paciente;
+import ec.edu.uce.modelo.PacienteSencillo;
 import ec.edu.uce.service.ICitaMedicaService;
 import ec.edu.uce.service.IDoctorService;
 import ec.edu.uce.service.IGestorCita;
@@ -38,6 +39,9 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 	@Autowired
 	IPacienteService pacienteService;
 	
+	@Autowired
+	ICitaMedicaService citaService;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(PruebaModulo2JyApplication.class, args);
 	}
@@ -45,11 +49,12 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		LOG.info("****************");
 		
+		LOG.info("****************");
+		/*
 		CitaMedica cita=new CitaMedica();
 		cita.setDiagnostico("disenteria");
-		cita.setFecha(LocalDateTime.of(2021, Month.APRIL, 5, 12, 30));
+		cita.setFecha(LocalDateTime.of(2022, Month.APRIL, 5, 12, 30));
 		cita.setLugar("clinica pichincha ala B");
 		cita.setNumero("45-78");
 		cita.setReceta("paracetamol");
@@ -67,10 +72,10 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		List<CitaMedica> citas=new ArrayList<>();
 		citas.add(cita2);
 		citas.add(cita);
-		
+		*/
 		Paciente paciente=new Paciente();
 		paciente.setApellido("Sisalima");
-		paciente.setCedula("17000");
+		paciente.setCedula("123");
 		paciente.setCodigoSeguro("a7-78");
 		paciente.setEstatura(1.78f);
 		paciente.setFechaNacimiento(LocalDate.of(1950, Month.FEBRUARY, 10));
@@ -80,11 +85,11 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		//paciente.setCitaMedica(citas);
 		pacienteService.create(paciente);
 		LOG.info(paciente.toString());
-		
+		/*
 		Paciente paciente2=new Paciente();
 		paciente2.setApellido("Ruiz");
 		paciente2.setCedula("237000");
-		paciente2.setCodigoSeguro("qwus-45");
+		paciente2.setCodigoSeguro("tyus-45");
 		paciente2.setEstatura(1.78f);
 		paciente2.setFechaNacimiento(LocalDate.of(1950, Month.FEBRUARY, 10));
 		paciente2.setGenero("femenino");
@@ -95,7 +100,7 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		LOG.info(paciente2.toString());
 		
 		Doctor doctor=new Doctor();
-		doctor.setApellido("Vinces");
+		doctor.setApellido("Vinc");
 		doctor.setCedula("2300");
 		doctor.setCodigoSenescyt("rt-56");
 		doctor.setFechaNacimiento(LocalDate.of(1992, Month.JUNE, 24));
@@ -105,10 +110,10 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		//doctor.setCitaMedica(citas);
 		doctorService.create(doctor);
 		LOG.info(doctor.toString());
-		
+		*/
 		Doctor doctor2=new Doctor();
 		doctor2.setApellido("Ruiz");
-		doctor2.setCedula("1706");
+		doctor2.setCedula("3456");
 		doctor2.setCodigoSenescyt("po-56");
 		doctor2.setFechaNacimiento(LocalDate.of(1987, Month.APRIL, 4));
 		doctor2.setGenero("masculino");
@@ -117,18 +122,26 @@ public class PruebaModulo2JyApplication implements CommandLineRunner{
 		//doctor2.setCitaMedica(citas);
 		doctorService.create(doctor2);
 		LOG.info(doctor2.toString());
-		
+		/*
 		cita.setPaciente(paciente2);
 		cita2.setPaciente(paciente);
 		cita.setDoctor(doctor);
-		
+		*/
 		//this.gestorCita.agendarCita(cita.getNumero(), cita.getFecha(), cita.getValor(), cita.getLugar(), cita.getDoctor().getCedula(), cita.getPaciente().getCedula());
 		
 		//**********AGENDAMIENTO
 		
-		this.gestorCita.agendamientoCita(cita.getNumero(), cita.getFecha(), cita.getValor(), cita.getLugar(), cita.getDoctor().getApellido(), cita.getPaciente().getCodigoSeguro());
-		LOG.info(cita.toString());
+		this.gestorCita.agendarCita("10-89", LocalDateTime.of(2022, Month.MAY, 5, 14, 30), new BigDecimal(25.30), "clinica pichincha ala A", "3456", "123");
+		this.gestorCita.acturalizarCita("475-78", "diabetes", "insulina", LocalDateTime.of(1987, Month.MAY, 4, 0, 0));
 		
+		
+		//this.gestorCita.agendamientoCita(cita.getNumero(), cita.getFecha(), cita.getValor(), cita.getLugar(), cita.getDoctor().getApellido(), cita.getPaciente().getCodigoSeguro());
+		//LOG.info(cita.toString());
+		List<PacienteSencillo> listaPaciente=this.pacienteService.reportePaciente(LocalDate.of(1949, Month.APRIL, 4), "femenino");
+		LOG.info("Pacientes : "+ listaPaciente.size());
+		for (PacienteSencillo p : listaPaciente) {
+			LOG.info(p.toString());
+		}
 	}
 
 }
